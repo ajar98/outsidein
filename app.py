@@ -9,17 +9,18 @@ import sqlite3
 app = Flask(__name__)
 
 class ReusableForm(Form):
-    name = TextField('Name:', validators=[validators.required()])
+    name = TextAreaField('Name:', validators=[validators.required()])
 
 @app.route("/", methods=['GET', 'POST'])
 def diary():
     form = ReusableForm(request.form)
     print(form.errors)
     if request.method == 'POST':
-        entry = request.form['entry']
+        name = request.form['name']
+        print(name)
         if form.validate():
             # Save the comment here.
-            compute_and_log_sentiment(entry)
+            compute_and_log_sentiment(name)
             return redirect(url_for('diary'))
         else:
             return 'All the form fields are required. '
