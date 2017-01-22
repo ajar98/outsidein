@@ -1,9 +1,11 @@
 from flask import Flask
-from flask import Flask, render_template, flash, request, redirect, url_for
+from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 from datetime import datetime
 import watson
 import json
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 import sqlite3
 
@@ -19,7 +21,8 @@ def diary():
     print(form.errors)
     if request.method == 'POST':
         name = request.form['name']
-        print(name)
+        with open('data.txt', 'a') as outfile:
+            outfile.write(name)
         if form.validate():
             # Save the comment here.
             compute_and_log_sentiment(name)
@@ -39,7 +42,7 @@ def graphs():
     for datum in data:
         emotion_data = datum[1:-2]
         positivity = datum[-2]
-        timestamp = datum[-1]
+        timestamp = datum[-1].split(' ')[0]
         for i in range(len(EMOTIONS)):
             graph_data[i].append(
                 {
@@ -53,12 +56,26 @@ def graphs():
                 'value': positivity
             }
         )
-    with open('data/emotions.json', 'w') as outfile:
-        json.dump(graph_data, outfile)
-    with open('data/positivity.json', 'w') as outfile:
-        json.dump(positivity_data, outfile)
-    return render_template('scatter.html')
+    view_data = {}
+    for i in range(len(EMOTIONS)):
+        emotion = EMOTIONS[i]
+        view_data[emotion.lower()] = graph_data[i]
+    view_data['positivity'] = positivity_data
+    return render_template('scatter.html', **view_data)
 
+@app.route("/wordcloud", methods=['GET'])
+def wc():
+    text = open('data.txt').read()
+    wordcloud = WordCloud().generate(text)
+    default_colors = wordcloud.to_array()
+    plt.title("Your WordCloud")
+    wordcloud.to_file("uploads/wc.png")
+    filename = 'wc.png'
+    return render_template('wordcloud.html', filename=filename)
+
+@app.route("/uploads/<filename>")
+def send_file(filename):
+    return send_from_directory('uploads', filename)
 
 def compute_and_log_sentiment(entry):
     sentiment_response = watson.get_text_sentiment(entry)
@@ -80,7 +97,6 @@ def compute_and_log_sentiment(entry):
     cur = conn.cursor()
     cur.execute("""INSERT INTO emotions VALUES(?,?,?,?,?,?,?,?)""", data)
     conn.commit()
-    conn.close()
 
 
 if __name__ == "__main__":

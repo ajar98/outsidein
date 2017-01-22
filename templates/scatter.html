@@ -30,15 +30,15 @@
           <ul class="nav navbar-nav">
             <li class="active"><button type="button" class="btn btn-primary btn-warning btn-block"><a href='http://127.0.0.1:5000/'>Diary</a></b</button></li>
             <li><button type="button" class="btn btn-primary btn btn-block"><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></button></li>
-            <li class="active"><button type="button" class="btn btn-primary btn-danger btn-block"><a href='http://127.0.0.1:5000/calendar'>Calendar</a></b</button></li>
+            <li class="active"><button type="button" class="btn btn-primary btn-danger btn-block"><a href='http://127.0.0.1:5000/calendar'>WordCloud</a></b</button></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
     <center><div id="positivity"></div></center>
     <script type="text/javascript">
-        d3.json('{{ url_for("static", filename="positivity.json") }}', function(data) {
-        data = MG.convert.date(data, 'date');
+        var viewData = JSON.parse('{{ positivity | tojson }}');
+        var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Overall Positivity",
             description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
@@ -51,12 +51,11 @@
             x_accessor: 'date',
             y_accessor: 'value'
           });
-        });
     </script>
     <center><div id="joy"></div></center>
     <script type="text/javascript">
-        d3.json('{{ url_for("static", filename="joy.json") }}', function(data) {
-        data = MG.convert.date(data, 'date');
+        var viewData = JSON.parse('{{ joy | tojson }}');
+        var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Joy",
             description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
@@ -69,12 +68,11 @@
             x_accessor: 'date',
             y_accessor: 'value'
           });
-        });
     </script>
     <center><div id="sadness"></div></center>
     <script type="text/javascript">
-        d3.json('{{ url_for("static", filename="sadness.json") }}', function(data) {
-        data = MG.convert.date(data, 'date');
+        var viewData = JSON.parse('{{ sadness | tojson }}');
+        var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Sadness",
             description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
@@ -87,12 +85,11 @@
             x_accessor: 'date',
             y_accessor: 'value'
           });
-        });
     </script>
     <center><div id="anger"></div></center>
     <script type="text/javascript">
-        d3.json('{{ url_for("static", filename="anger.json") }}', function(data) {
-        data = MG.convert.date(data, 'date');
+        var viewData = JSON.parse('{{ anger | tojson }}');
+        var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Anger",
             description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
@@ -105,12 +102,11 @@
             x_accessor: 'date',
             y_accessor: 'value'
           });
-        });
     </script>
     <center><div id="disgust"></div></center>
     <script type="text/javascript">
-        d3.json('{{ url_for("static", filename="disgust.json") }}', function(data) {
-        data = MG.convert.date(data, 'date');
+        var viewData = JSON.parse('{{ positivity | tojson }}');
+        var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Disgust",
             description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
@@ -123,12 +119,11 @@
             x_accessor: 'date',
             y_accessor: 'value'
           });
-        });
     </script>
     <center><div id="fear"></div></center>
     <script type="text/javascript">
-        d3.json('{{ url_for("static", filename="fear.json") }}', function(data) {
-        data = MG.convert.date(data, 'date');
+        var viewData = JSON.parse('{{ fear | tojson }}');
+        var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Fear",
             description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
@@ -141,7 +136,6 @@
             x_accessor: 'date',
             y_accessor: 'value'
           });
-        });
     </script>
   </body>
 
