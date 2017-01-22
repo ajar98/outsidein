@@ -65,7 +65,7 @@ def max_sentiment(sentiment_response):
     return max_sentence, max_emotion, max_value
 
 if __name__ == '__main__':
-    text = input('Enter some pippity: ')
+    text = input('Enter the recent happening from the day and your feelings: ')
     score = get_text_sentiment_score(text)
     resp = get_text_sentiment(text)
     print(max_sentiment(resp))
