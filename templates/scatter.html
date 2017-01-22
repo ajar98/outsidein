@@ -1,6 +1,8 @@
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.3/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.11.0/metricsgraphics.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.11.0/metricsgraphics.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -10,25 +12,136 @@
 
   </head>
   <body>
-    <div id="emotions"></div>
-    <script type="text/javascript">
-      d3.json('data/emotions.json', function(data) {
-      for (var i = 0; i < data.length; i++) {
-          data[i] = MG.convert.date(data[i], 'date');
-      }
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Logo</a>
+        </div>
 
-      MG.data_graphic({
-          title: "Multi-Line Chart",
-          description: "This line chart contains multiple lines.",
-          data: data,
-          width: 600,
-          height: 200,
-          right: 40,
-          target: '#emotions',
-          legend: ['Joy','Sadness','Anger', 'Disgust', 'Fear'],
-          legend_target: '.legend'
-      });
-    });
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><button type="button" class="btn btn-primary btn-warning btn-block"><a href='http://127.0.0.1:5000/'>Diary</a></b</button></li>
+            <li><button type="button" class="btn btn-primary btn btn-block"><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></button></li>
+            <li class="active"><button type="button" class="btn btn-primary btn-danger btn-block"><a href='http://127.0.0.1:5000/calendar'>Calendar</a></b</button></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <center><div id="positivity"></div></center>
+    <script type="text/javascript">
+        d3.json('{{ url_for("static", filename="positivity.json") }}', function(data) {
+        data = MG.convert.date(data, 'date');
+        MG.data_graphic({
+            title: "Overall Positivity",
+            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
+            data: data,
+            width: 1000,
+            height: 400,
+            right: 40,
+            color: '#8C001A',
+            target: document.getElementById('positivity'),
+            x_accessor: 'date',
+            y_accessor: 'value'
+          });
+        });
+    </script>
+    <center><div id="joy"></div></center>
+    <script type="text/javascript">
+        d3.json('{{ url_for("static", filename="joy.json") }}', function(data) {
+        data = MG.convert.date(data, 'date');
+        MG.data_graphic({
+            title: "Joy",
+            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
+            data: data,
+            width: 1000,
+            height: 400,
+            right: 40,
+            color: '#8C001A',
+            target: document.getElementById('joy'),
+            x_accessor: 'date',
+            y_accessor: 'value'
+          });
+        });
+    </script>
+    <center><div id="sadness"></div></center>
+    <script type="text/javascript">
+        d3.json('{{ url_for("static", filename="sadness.json") }}', function(data) {
+        data = MG.convert.date(data, 'date');
+        MG.data_graphic({
+            title: "Sadness",
+            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
+            data: data,
+            width: 1000,
+            height: 400,
+            right: 40,
+            color: '#8C001A',
+            target: document.getElementById('sadness'),
+            x_accessor: 'date',
+            y_accessor: 'value'
+          });
+        });
+    </script>
+    <center><div id="anger"></div></center>
+    <script type="text/javascript">
+        d3.json('{{ url_for("static", filename="anger.json") }}', function(data) {
+        data = MG.convert.date(data, 'date');
+        MG.data_graphic({
+            title: "Anger",
+            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
+            data: data,
+            width: 1000,
+            height: 400,
+            right: 40,
+            color: '#8C001A',
+            target: document.getElementById('anger'),
+            x_accessor: 'date',
+            y_accessor: 'value'
+          });
+        });
+    </script>
+    <center><div id="disgust"></div></center>
+    <script type="text/javascript">
+        d3.json('{{ url_for("static", filename="disgust.json") }}', function(data) {
+        data = MG.convert.date(data, 'date');
+        MG.data_graphic({
+            title: "Disgust",
+            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
+            data: data,
+            width: 1000,
+            height: 400,
+            right: 40,
+            color: '#8C001A',
+            target: document.getElementById('disgust'),
+            x_accessor: 'date',
+            y_accessor: 'value'
+          });
+        });
+    </script>
+    <center><div id="fear"></div></center>
+    <script type="text/javascript">
+        d3.json('{{ url_for("static", filename="fear.json") }}', function(data) {
+        data = MG.convert.date(data, 'date');
+        MG.data_graphic({
+            title: "Fear",
+            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
+            data: data,
+            width: 1000,
+            height: 400,
+            right: 40,
+            color: '#8C001A',
+            target: document.getElementById('fear'),
+            x_accessor: 'date',
+            y_accessor: 'value'
+          });
+        });
     </script>
   </body>
 
