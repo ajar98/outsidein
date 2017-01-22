@@ -79,8 +79,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="242" />
-    <option name="y" value="461" />
+    <option name="x" value="-298" />
+    <option name="y" value="388" />
     <option name="width" value="1401" />
     <option name="height" value="668" />
   </component>
@@ -284,7 +284,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="242" y="461" width="1401" height="668" extended-state="0" />
+    <frame x="-298" y="388" width="1401" height="668" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.00856531" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
