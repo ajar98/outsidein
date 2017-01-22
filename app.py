@@ -22,7 +22,7 @@ def diary():
     if request.method == 'POST':
         name = request.form['name']
         with open('data.txt', 'a') as outfile:
-            outfile.write(name)
+            outfile.write(name + '\n')
         if form.validate():
             # Save the comment here.
             compute_and_log_sentiment(name)
