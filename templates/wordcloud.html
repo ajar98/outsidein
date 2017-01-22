@@ -9,7 +9,7 @@
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body style="background-color:{{ bg }}">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -20,18 +20,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Logo</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><button type="button" class="btn btn-primary btn-warning btn-block"><a href='http://127.0.0.1:5000/'>Diary</a></b</button></li>
-            <li><button type="button" class="btn btn-primary btn btn-block"><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></button></li>
-            <li class="active"><button type="button" class="btn btn-primary btn-danger btn-block"><a href='http://127.0.0.1:5000/wordcloud'>WordCloud</a></b</button></li>
+            <li><a href='http://127.0.0.1:5000/'>Diary</a></li>
+            <li><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></li>
+            <li class="active"><a href='http://127.0.0.1:5000/wordcloud'>WordCloud</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    <img src="{{ url_for('send_file', filename='wc.png') }}">
+    <br><br><br><br><br><br>
+    <center><img src="{{ url_for('send_file', filename='wc.png') }}"></center>
   </body>

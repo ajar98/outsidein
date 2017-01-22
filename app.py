@@ -6,10 +6,20 @@ import watson
 import json
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import dateparser
 
 import sqlite3
 
 EMOTIONS = ['Joy', 'Sadness', 'Anger', 'Disgust', 'Fear']
+
+EMOTIONS_COLORS = {
+    'Joy': 'rgba(255, 239, 44, 0.5)',
+    'Sadness': 'rgba(44, 181, 255, 0.5)',
+    'Anger': 'rgba(255, 76, 44, 0.5)',
+    'Disgust': 'rgba(89, 191, 100, 0.5)',
+    'Fear': 'rgba(207, 82, 240, 0.5)'
+}
+
 app = Flask(__name__)
 
 class ReusableForm(Form):
@@ -37,6 +47,7 @@ def graphs():
     conn = sqlite3.connect('sqlite3')
     cur = conn.cursor()
     data = cur.execute('SELECT * FROM emotions;').fetchall()
+    conn.close()
     graph_data = [[] for emotions in EMOTIONS]
     positivity_data = []
     for datum in data:
@@ -61,7 +72,16 @@ def graphs():
         emotion = EMOTIONS[i]
         view_data[emotion.lower()] = graph_data[i]
     view_data['positivity'] = positivity_data
-    return render_template('scatter.html', **view_data)
+    return render_template('scatter.html', bg=get_bg(), **view_data)
+
+def get_bg():
+    conn = sqlite3.connect('sqlite3')
+    cur = conn.cursor()
+    data = cur.execute('SELECT * FROM emotions;').fetchall()
+    max_entry = max(data, key=lambda entry: dateparser.parse(entry[-1]))
+    max_index = max(list(range(len(EMOTIONS))), key=lambda i: max_entry[1:-2][i])
+    emotion = EMOTIONS[max_index]
+    return EMOTIONS_COLORS[emotion]
 
 @app.route("/wordcloud", methods=['GET'])
 def wc():
@@ -71,7 +91,7 @@ def wc():
     plt.title("Your WordCloud")
     wordcloud.to_file("uploads/wc.png")
     filename = 'wc.png'
-    return render_template('wordcloud.html', filename=filename)
+    return render_template('wordcloud.html', bg=get_bg(), filename=filename)
 
 @app.route("/uploads/<filename>")
 def send_file(filename):

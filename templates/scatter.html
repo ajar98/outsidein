@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.11.0/metricsgraphics.css"></link>
 
   </head>
-  <body>
+  <body style="background-color:{{ bg }}">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -22,15 +22,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Logo</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><button type="button" class="btn btn-primary btn-warning btn-block"><a href='http://127.0.0.1:5000/'>Diary</a></b</button></li>
-            <li><button type="button" class="btn btn-primary btn btn-block"><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></button></li>
-            <li class="active"><button type="button" class="btn btn-primary btn-danger btn-block"><a href='http://127.0.0.1:5000/wordcloud'>WordCloud</a></b</button></li>
+            <li><a href='http://127.0.0.1:5000/'>Diary</a></li>
+            <li class="active"><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></li>
+            <li><a href='http://127.0.0.1:5000/wordcloud'>WordCloud</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -45,8 +44,10 @@
             data: data,
             width: 1000,
             height: 400,
+            min_y: -1,
+            max_y: 1,
             right: 40,
-            color: '#8C001A',
+            color: '#32F81B',
             target: document.getElementById('positivity'),
             x_accessor: 'date',
             y_accessor: 'value'
@@ -58,12 +59,11 @@
         var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Joy",
-            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
             data: data,
             width: 1000,
             height: 400,
             right: 40,
-            color: '#8C001A',
+            color: '#FFEF2C',
             target: document.getElementById('joy'),
             x_accessor: 'date',
             y_accessor: 'value'
@@ -75,12 +75,11 @@
         var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Sadness",
-            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
             data: data,
             width: 1000,
             height: 400,
             right: 40,
-            color: '#8C001A',
+            color: '#2CB5FF',
             target: document.getElementById('sadness'),
             x_accessor: 'date',
             y_accessor: 'value'
@@ -92,12 +91,11 @@
         var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Anger",
-            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
             data: data,
             width: 1000,
             height: 400,
             right: 40,
-            color: '#8C001A',
+            color: '#FF4C2C',
             target: document.getElementById('anger'),
             x_accessor: 'date',
             y_accessor: 'value'
@@ -105,16 +103,15 @@
     </script>
     <center><div id="disgust"></div></center>
     <script type="text/javascript">
-        var viewData = JSON.parse('{{ positivity | tojson }}');
+        var viewData = JSON.parse('{{ disgust | tojson }}');
         var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Disgust",
-            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
             data: data,
             width: 1000,
             height: 400,
             right: 40,
-            color: '#8C001A',
+            color: '#59BF64',
             target: document.getElementById('disgust'),
             x_accessor: 'date',
             y_accessor: 'value'
@@ -126,12 +123,11 @@
         var data = MG.convert.date(viewData, 'date');
         MG.data_graphic({
             title: "Fear",
-            description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
             data: data,
             width: 1000,
             height: 400,
             right: 40,
-            color: '#8C001A',
+            color: '#CF52F0',
             target: document.getElementById('fear'),
             x_accessor: 'date',
             y_accessor: 'value'

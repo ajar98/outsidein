@@ -15,9 +15,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><button type="button" class="btn btn-primary btn-warning btn-block"><a href='http://127.0.0.1:5000/'>Diary</a></b</button></li>
-            <li><button type="button" class="btn btn-primary btn btn-block"><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></button></li>
-            <li class="active"><button type="button" class="btn btn-primary btn-danger btn-block"><a href='http://127.0.0.1:5000/wordcloud'>WordCloud</a></b</button></li>
+            <li class="active"><a href='http://127.0.0.1:5000/'>Diary</a></li>
+            <li><a href='http://127.0.0.1:5000/emotions'>Emotion Graphs</a></li>
+            <li><a href='http://127.0.0.1:5000/wordcloud'>WordCloud</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -26,7 +26,7 @@
       {{ form.csrf }}
       <div class="form-group">
         <label for="name"></label>
-        <textarea id="name" name="name" cols="160" rows="50" style="outline: none; font-size: 12pt; border: none"></textarea>
+        <textarea id="name" placeholder="Write in your thoughts and feelings..." name="name" cols="160" rows="50" style="outline: none; font-size: 12pt; border: none"></textarea>
       </div>
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
