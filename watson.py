@@ -30,7 +30,7 @@ def get_text_sentiment(text):
     for text_response in text_responses:
         emotion_response = dict()
         if 'text' in text_response:
-            emotion_response['text'] = text_response['text'] 
+            emotion_response['text'] = text_response['text']
         else:
             emotion_response['text'] = text
         emotion_tone = text_response['tone_categories'][0]
@@ -65,6 +65,9 @@ def max_sentiment(sentiment_response):
     return max_sentence, max_emotion, max_value
 
 if __name__ == '__main__':
-    resp = get_text_sentiment(input('Enter some pippity: '))
+    text = input('Enter some pippity: ')
+    score = get_text_sentiment_score(text)
+    resp = get_text_sentiment(text)
     print(max_sentiment(resp))
     print(avg_sentiment(resp))
+    print(score)
